@@ -1,0 +1,53 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\title{Answering LE 105 Assignment 2}
+\author{Chaitanya Deshkar | 23B2712}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1}
+I think this is a fair argument to be made, as according to the celestial sphere argument, 
+we assume that the pole star that we see is the point where celestial sphere intersects with the axis of earth's rotation
+
+The reason why this argument is not valid is because for the reason that we see the north pole star is because 
+there is a star that is very close to the intersection of our imaginary celestial sphere and the axis of earth's rotation. 
+
+The reason there is no south pole star is because there is no star that is very close to the intersection of our imaginary celestial sphere and the axis of earth's rotation in the southern hemisphere that we can see with naked eye.
+
+
+\section*{Question 2}
+For a 3 dimensional column vector setting, and using the notation given in the question,for cross product, we know the formula for cross product is 
+\[\begin{pmatrix}
+\hat{i} & \hat{j} & \hat{k} \\
+A_1 & A_2 & A_3 \\
+B_1 & B_2 & B_3
+\end{pmatrix} = 
+(A_2B_3 - A_3B_2) \hat{i} -
+(A_1B_3 - A_3B_1) \hat{j} +
+(A_1B_2 - A_2B_1) \hat{k}\]
+We can retrieve this formula from the tensor product vector as it is given by
+\[\begin{pmatrix}
+A_1B_1 & A_1B_2 & A_1B_3 \\
+A_2B_1 & A_2B_2 & A_2B_3 \\
+A_3B_1 & A_3B_2 & A_3B_3
+\end{pmatrix}\]
+Now, we can just take the required terms from the \(3 \times 3\) matrix to get the cross product.
+
+For the standard inner product or dot product, we just need to take the trace of the tensor product.
+\end{document}

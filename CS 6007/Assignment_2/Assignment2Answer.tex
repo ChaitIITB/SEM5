@@ -1,0 +1,123 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amssymb}
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\title{Answering Multi-Agent Machine Learning Assignment 2}
+\author{Chaitanya Deshkar | 23B2712}
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1}
+\subsection*{Part A}
+This is trivial from the fact that \[\mathbb{E}[G(x;\xi)] = \frac{1}{d} \sum_{\xi = 1}^d G(x;\xi)\]
+\[= \frac{1}{d} \sum_{\xi = 1}^d d\left[\frac{\partial f(x)}{\partial x}\right]e_\xi\]
+\[= \sum_{\xi = 1}^d \left[\frac{\partial f(x)}{\partial x}\right]e_\xi\]
+\[= \nabla f(x)\]
+Q.E.D.
+\subsection*{Part B}
+Again, we have \[\mathbb{E}[\|G(x;\xi)\|^2] = \frac{1}{d} \sum_{\xi = 1}^d \|G(x;\xi)\|^2\]
+\[= \frac{1}{d} \sum_{\xi = 1}^d d^2 \left[\frac{\partial f(x)}{\partial x}\right]^2\]
+\[= d \sum_{\xi = 1}^d \left[\frac{\partial f(x)}{\partial x}\right]^2\]
+\[\le dL^2\]
+The final step follows from the definition of L-Lipschitz smoothness.
+
+\section*{Question 2}
+\subsection*{Part 1}
+For proving the above statement, lets start by writing it out. 
+\[dist(x, \Omega) = \inf_{w \in \Omega} \|x - w\|\]
+let us consider another point $y$. For 1-Lipchitzness, we have
+\[\|dist(x, \Omega) - dist(y, \Omega)\| = |\inf_{w \in \Omega} \|x - w\| - \inf_{w \in \Omega} \|y - w\||\]
+thus, we have to prove that,
+\[\implies |\inf_{w \in \Omega} \|x - w\| - \inf_{w \in \Omega} \|y - w\|| \le \|x - y\|\]
+By triangle inequality, we have
+\[\|x - w\| \le \|x - y\| + \|y - w\|\]
+\[\implies \|x - w\| - \|y - w\| \le \|x - y\|\]
+and taking infimum over $w \in \Omega$, we have
+\[\inf_{w \in \Omega} \|x - w\| - \inf_{w \in \Omega} \|y - w\| \le \|x - y\|\]
+Q.E.D.
+\subsection*{Part 2}
+We have to prove that $dist(x, \Omega)$ is convex $\iff \Omega$ is convex.\newline
+For ($\Rightarrow$) we know that if $dist(x, \Omega)$ is convex, then for any $x, y \in \Omega$ and $t \in [0, 1]$, we have
+\[dist(tx + (1-t)y, \Omega) \le t \cdot dist(x, \Omega) + (1-t) \cdot dist(y, \Omega) = 0\]
+but $dist(tx + (1-t)y, \Omega) \ge 0$ meaning, $dist(tx + (1-t)y, \Omega) = 0$ which means $tx + (1-t)y \in \Omega$. Thus, $\Omega$ is convex.\newline
+For ($\Leftarrow$) we have to prove that if $\Omega$ is convex, then $dist(x, \Omega)$ is convex. For that, we choose a contrapositive approach, where we show that if $dist(x, \Omega)$ is not convex, then $\Omega$ is not convex. We have to prove that for any $x, y$ and $t \in [0, 1]$, if    \[dist(tx + (1-t)y, \Omega) > t \cdot dist(x, \Omega) + (1-t) \cdot dist(y, \Omega)\]
+then $\Omega$ is not convex. Let us assume that $x, y \in \Omega$ now because $\Omega$ is not convex there exists $tx - (1 - t)y \notin \Omega$, and for that, \[dist(tx - (1 - t)y, \Omega) > 0\]
+Thus, function $dist$ will not be convex.
+Q.E.D.
+\section*{Question 3}
+\subsection*{Part a}
+Using the same inequality given in the question for convex functions, if we put \[g = \partial f(x) = 0\]  then 
+\[\forall y, f(y) \ge f(x)\]
+Q.E.D.
+\subsection*{Part b}
+Fixing $x$ and $g \in \partial f(x)$, and $v \in \mathbb{S}^{d - 1}$ and take $t > 0$. From the inequality given,
+\[f(x + tv) \ge f(x) + \langle g, tv \rangle\]
+\[\implies \langle g, v \rangle \le \frac{f(x + tv) - f(x)}{t}.\]
+Because f is L-Lipschitz smooth, we have
+\[\langle g, v \rangle \le \frac{L\|tv\| - 0}{t} = L\]
+We get after taking the supremum over unit vectors. 
+Q.E.D.
+\section*{Question 4}
+Given the operator \( S(x) = x - \alpha \nabla f(x) \), where \( f \) is \( m \)-strongly convex, we want to show:
+\[
+\|S(x) - S(y)\| \leq (1 - \alpha m) \|x - y\|
+\]
+
+Write the difference
+\[
+S(x) - S(y) = (x - y) - \alpha (\nabla f(x) - \nabla f(y))
+\]
+
+Using the parallelogram identity for the norm squared,
+\[
+\|S(x) - S(y)\|^2 = \|x - y\|^2 - 2 \alpha \langle \nabla f(x) - \nabla f(y), x - y \rangle + \alpha^2 \|\nabla f(x) - \nabla f(y)\|^2
+\]
+
+ Since \( f \) is \( m \)-strongly convex, its gradient satisfies the strong monotonicity property,
+\[
+\langle \nabla f(x) - \nabla f(y), x - y \rangle \geq m \|x - y\|^2
+\]
+
+ Since \( f \) is \( M \)-smooth, the gradient is Lipschitz continuous,
+\[
+\|\nabla f(x) - \nabla f(y)\| \leq M \|x - y\|
+\]
+
+Substitute these into the norm squared,
+\[
+\|S(x) - S(y)\|^2 \leq \|x - y\|^2 - 2 \alpha m \|x - y\|^2 + \alpha^2 M^2 \|x - y\|^2
+\]
+
+\[\|S(x) - S(y)\|^2 \leq \left(1 - 2 \alpha m + \alpha^2 M^2 \right) \|x - y\|^2
+\]
+
+Taking square roots,
+\[
+\|S(x) - S(y)\| \leq \sqrt{1 - 2 \alpha m + \alpha^2 M^2} \|x - y\|
+\]
+
+For small enough \(\alpha\), 
+\[
+\sqrt{1 - 2 \alpha m + \alpha^2 M^2} \leq 1 - \alpha m
+\]
+so that
+\[
+\|S(x) - S(y)\| \leq (1 - \alpha m) \|x - y\|
+\]
+    
+
+\end{document}
